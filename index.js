@@ -57,6 +57,25 @@ async function run() {
         })
 
 
+
+         // put / update user / stock increased / react hook form
+         app.put('/service/:id', async(req,res)=>{
+            const id = req.params.id;
+            const updatedStock = req.body;
+            const filter = {_id: ObjectId(id)};
+            const options = { upsert: true };
+            const updatedDoc = {
+                $set: {
+                    stock: updatedStock.stock
+                    
+                }
+            };
+            const result = await serviceCollection.updateOne(filter,updatedDoc, options);
+            res.send(result);
+        })
+
+
+
     }
 }
 run().catch(console.dir);
